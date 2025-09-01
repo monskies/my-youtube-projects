@@ -1,0 +1,130 @@
+/* ====== Base / Theme ====== */
+:root{
+  --bg1:#0f1220;
+  --bg2:#1b1f36;
+  --card-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.15);
+  --fg:#e9ecf1;
+  --muted:#9aa3b2;
+  --line:#3c4460;
+  --accent:#7bdcff;          /* underline + focus color */
+  --accent-2:#a47bff;        /* button gradient */
+}
+
+* { box-sizing: border-box; }
+html,body { height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--fg);
+  background: radial-gradient(1200px 600px at 10% 10%, var(--bg2), transparent 60%),
+              radial-gradient(1200px 600px at 90% 90%, #10152a, transparent 60%),
+              linear-gradient(120deg, #0b0e1a, #141935);
+  display:grid;
+  place-items:center;
+}
+
+/* ====== Layout ====== */
+.wrap{
+  width:min(92vw, 420px);
+  padding:20px 0;
+}
+
+.card{
+  --card-pad: 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: var(--card-pad);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+.card h1{
+  margin: 0 0 18px;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+/* ====== Floating labels ====== */
+.field{
+  position: relative;
+  margin: 18px 0 22px;
+}
+
+.field input{
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.2;
+  padding: 18px 12px 10px;
+  border: 0;
+  outline: 0;
+  color: var(--fg);
+  background: transparent;
+  border-bottom: 2px solid var(--line);
+}
+
+.field label{
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: .18s ease;
+  padding: 0 6px;
+  /* Compensate label over input text by tinting background */
+  background: color-mix(in srgb, var(--card-bg) 85%, transparent);
+  border-radius: 4px;
+}
+
+.field .bar{
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  margin: 0 auto;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width .22s ease;
+}
+
+.field input:focus ~ .bar { width: 100%; }
+
+/* move label on focus or when value present (placeholder trick) */
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label{
+  top: 0;
+  transform: translateY(-60%) scale(.86);
+  color: var(--accent);
+}
+
+/* ====== Button ====== */
+button{
+  width: 100%;
+  margin-top: 6px;
+  border: 0;
+  color: #0a0d19;
+  font-weight: 700;
+  letter-spacing: .2px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .18s ease, filter .2s ease;
+  box-shadow: 0 6px 18px rgba(123,220,255,.25);
+}
+
+button:hover{ filter: brightness(1.05); }
+button:active{ transform: translateY(1px) scale(.995); }
+
+/* ====== Footer hint ====== */
+.hint{
+  text-align: center;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.hint a{ color: var(--fg); text-decoration: none; border-bottom: 1px dotted var(--line); }
+.hint a:hover{ color: var(--accent); }
